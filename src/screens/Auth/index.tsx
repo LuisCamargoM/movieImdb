@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet,View} from 'react-native';
 import {useAuth} from '../../hooks/useAuth';
 import IButton from '../../components/Button';
-import {useNavigation} from '@react-navigation/native';
+import {IText} from '../../components/Text';
 
 const AuthScreen: React.FC = () => {
   const {container} = styles;
@@ -19,7 +19,7 @@ const AuthScreen: React.FC = () => {
   return (
     <View style={container}>
       <IButton loading={loading} onPress={handleSignIn}>
-        <Text style={{color: 'black', fontSize: 20}}>Sign In</Text>
+        <IText text={'Sign In'} style={{color: 'black', fontSize: 20}} />
       </IButton>
     </View>
   );

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {createContext} from 'react';
 import {Alert} from 'react-native';
-import {useDispatch} from 'react-redux';
+
 type AuthContext = {
   isLoggedIn: boolean;
   SignInEvent: () => Promise<void>;
