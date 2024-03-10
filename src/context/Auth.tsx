@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {createContext} from 'react';
 import {Alert} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 type AuthContext = {
   isLoggedIn: boolean;
-  SignInEvent: (email?: string, password?: string) => Promise<void>;
-  SignOutEvent: () => void;
+  SignInEvent: () => Promise<void>;
+  SignOutEvent: () => Promise<void>;
 };
 
 type ProviderProps = {
@@ -14,8 +14,7 @@ type ProviderProps = {
 export const AuthContext = createContext<AuthContext>({} as AuthContext);
 
 export const AuthProvider: React.FC<ProviderProps> = props => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>();
-  const dispatch = useDispatch();
+  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
 
   const loadFromStorage = async () => {
     const auth = await AsyncStorage.getItem('@isLoggedIn');
@@ -23,21 +22,24 @@ export const AuthProvider: React.FC<ProviderProps> = props => {
   };
   const SignInEvent = async () => {
     try {
-      AsyncStorage.setItem('@isLoggedIn', JSON.stringify(true));
+      await AsyncStorage.setItem('@isLoggedIn', JSON.stringify(true));
+      setTimeout(async () => {
+        setIsLoggedIn(true);
+      }, 3000);
     } catch (error) {
       Alert.alert(error, 'try again');
     }
   };
 
   const SignOutEvent = async () => {
-    return new Promise((resolve, reject) => {
-      try {
-        AsyncStorage.removeItem('@isLoggedIn');
-      } catch (error) {
-        reject(error);
-        Alert.alert(error.message, 'try again');
-      }
-    });
+    try {
+      await AsyncStorage.removeItem('@isLoggedIn');
+      setTimeout(async () => {
+        setIsLoggedIn(false);
+      }, 3000);
+    } catch (error) {
+      Alert.alert(error.message, 'try again');
+    }
   };
   React.useEffect(() => {
     loadFromStorage();
