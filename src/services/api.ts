@@ -1,11 +1,7 @@
 import axios from 'axios';
 import {
-  DetailsData,
-  DetailsResponse,
   Movie,
   RandomMoviesResponse,
-  ResponseMovieData,
-  SearchResponse,
 } from './types';
 
 const API_URL = 'https://search.imdbot.workers.dev/?';
@@ -20,7 +16,7 @@ const api = axios.create({
 });
 
 const fetchApiData = async (params: string) => {
-  return await axios.get(`${API_URL}${params}`).then(res => res.data);
+  return await api.get(`${API_URL}${params}`).then(res => res.data);
 };
 
 export const search = async (searchText: string): Promise<any> => {
@@ -102,6 +98,6 @@ export const getRandomMovies = async (
     const movies = result.sort((a, b) => a.title - b.title).slice(0, size);
     return {ok: true, movies, error_code};
   } catch (error) {
-    return {ok: true, movies: [], error_code};
+    return {ok: false, movies: [], error_code};
   }
 };
