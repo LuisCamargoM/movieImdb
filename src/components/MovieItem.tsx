@@ -3,9 +3,10 @@ import {useNavigation} from '@react-navigation/native';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {setMovieSelected} from '../store/slices/movieSlice';
+import { Movie } from '../services/types';
 
 interface MovieItemProps {
-  item: any;
+  item: Movie;
   styleType: 'home' | 'search';
 }
 

@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
-import {
-  Dimensions,
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {ImageBackground, ScrollView, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {IText, ITitle} from '../../components/Text';
 import {useMovieDetails} from '../../hooks/useMovieDetails';
@@ -14,12 +8,32 @@ import {useSelector} from 'react-redux';
 import {selectLoadingDetailsMovies} from '../../store/slices/movieSlice';
 import IButton from '../../components/Button';
 import {useAuth} from '../../hooks/useAuth';
+import useDimension from '../../hooks/useSize';
 
-const DetailsScreen: React.FC = props => {
-  const {container} = styles;
-  const {width, height} = Dimensions.get('window');
+const {width, height} = useDimension;
+const DetailsScreen: React.FC = () => {
+  const {
+    container,
+    actorContainer,
+    actorsSection,
+    contentView,
+    descriptionContainer,
+    descriptionView,
+    firstSection,
+    genresSection,
+    imgBackground,
+    keywordContainer,
+    keywordView,
+    keywordViewText,
+    linearGradient,
+    nameContainer,
+    scrollViewContainer,
+    signOutText,
+  } = styles;
+
   const {SignOutEvent} = useAuth();
   const movieDetails = useMovieDetails();
+  
   const loading = useSelector(selectLoadingDetailsMovies);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
 
@@ -41,40 +55,25 @@ const DetailsScreen: React.FC = props => {
         <ImageBackground
           source={{uri: imageUrl ?? 'http://via.placeholder.com/2000x2000'}}
           resizeMode="cover"
-          style={{
-            width: width,
-            height: height / 2,
-            flex: 1,
-          }}>
+          style={imgBackground}>
           <LinearGradient
             colors={['transparent', 'rgba(25,25,25,1)']}
-            style={{
-              height: height / 2,
-            }}
+            style={linearGradient}
           />
         </ImageBackground>
 
-        <ScrollView
-          style={{
-            flex: 1,
-            marginHorizontal: 20,
-            marginBottom: 40,
-          }}>
+        <ScrollView style={scrollViewContainer}>
           {name && (
-            <View style={{flexDirection: 'row'}}>
+            <View style={nameContainer}>
               <ITitle text={`${name}`} color="white" size={40} />
             </View>
           )}
-          <View
-            style={{
-              flex: 1,
-              marginTop: 20,
-            }}>
+          <View style={contentView}>
             {loading ? (
               <LoadingScreen oposite />
             ) : (
               <>
-                <View style={{marginTop: 20, flexDirection: 'row'}}>
+                <View style={firstSection}>
                   {year && (
                     <IText
                       text={year}
@@ -103,47 +102,19 @@ const DetailsScreen: React.FC = props => {
                   )}
                 </View>
                 {genres && genres?.length > 0 && (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      marginTop: 10,
-                      alignItems: 'flex-end',
-                    }}>
+                  <View style={genresSection}>
                     {genres?.length > 0 && (
-                      // <View
-                      //   style={{
-                      //     paddingHorizontal: 5,
-                      //     marginRight: 10,
-                      //     paddingVertical: 5,
-                      //     borderRadius: 5,
-                      //     borderWidth: 0.5,
-                      //     borderColor: 'grey',
-                      //   }}>
                       <IText text={genres} color="grey" size={14} />
-                      // </View>
                     )}
                   </View>
                 )}
                 {actors.length > 0 && (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      marginTop: 20,
-                      alignItems: 'flex-end',
-                    }}>
+                  <View style={actorsSection}>
                     {actors.length > 0 &&
                       actors?.map(actor => {
                         return (
                           actor && (
-                            <View
-                              style={{
-                                paddingHorizontal: 5,
-                                marginRight: 10,
-                                paddingVertical: 5,
-                                borderRadius: 5,
-                                borderWidth: 0.5,
-                                borderColor: 'grey',
-                              }}>
+                            <View key={actor} style={actorContainer}>
                               <IText text={actor} color="white" size={14} />
                             </View>
                           )
@@ -151,14 +122,10 @@ const DetailsScreen: React.FC = props => {
                       })}
                   </View>
                 )}
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    marginTop: 30,
-                  }}>
+                <View style={descriptionView}>
                   <IText text={'Description: '} color="white" />
                   {description && (
-                    <View style={{marginVertical: 5}}>
+                    <View style={descriptionContainer}>
                       <IText
                         text={description}
                         color="grey"
@@ -168,22 +135,13 @@ const DetailsScreen: React.FC = props => {
                     </View>
                   )}
                 </View>
-                <View style={{marginTop: 20}}>
+                <View style={keywordContainer}>
                   <IText text={'Keywords '} color="white" />
                   {keywords && (
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        marginVertical: 5,
-                      }}>
+                    <View style={keywordView}>
                       <IText
                         text={keywords}
-                        style={{
-                          flex: 1,
-                          flexWrap: 'wrap',
-                          color: 'grey',
-                          fontSize: 15,
-                        }}
+                        style={keywordViewText}
                         adjustsFontSizeToFit
                       />
                     </View>
@@ -193,15 +151,7 @@ const DetailsScreen: React.FC = props => {
                   secondary={'secondary'}
                   loading={buttonLoading}
                   onPress={handleSignout}>
-                  <IText
-                    text={'Sign out'}
-                    style={{
-                      width: '100%',
-                      color: 'white',
-                      fontSize: 20,
-                      textAlign: 'center',
-                    }}
-                  />
+                  <IText text={'Sign out'} style={signOutText} />
                 </IButton>
               </>
             )}
@@ -220,6 +170,65 @@ const styles = StyleSheet.create({
     height: 500,
     flexDirection: 'column',
     backgroundColor: '#191919',
+  },
+  imgBackground: {
+    width: width,
+    height: height / 2,
+    flex: 1,
+  },
+  linearGradient: {
+    height: height / 2,
+  },
+  scrollViewContainer: {
+    flex: 1,
+    marginHorizontal: 20,
+    marginBottom: 40,
+  },
+  nameContainer: {flexDirection: 'row'},
+  contentView: {
+    flex: 1,
+    marginTop: 20,
+  },
+  firstSection: {marginTop: 20, flexDirection: 'row'},
+  genresSection: {
+    flexDirection: 'row',
+    marginTop: 10,
+    alignItems: 'flex-end',
+  },
+  actorsSection: {
+    flexDirection: 'row',
+    marginTop: 20,
+    alignItems: 'flex-end',
+  },
+  actorContainer: {
+    paddingHorizontal: 5,
+    marginRight: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+    borderWidth: 0.5,
+    borderColor: 'grey',
+  },
+  descriptionContainer: {marginVertical: 5},
+  descriptionView: {
+    flexDirection: 'column',
+    marginTop: 30,
+  },
+  keywordContainer: {marginTop: 20},
+  keywordView: {
+    flexDirection: 'row',
+    marginVertical: 5,
+  },
+  keywordViewText: {
+    flex: 1,
+    flexWrap: 'wrap',
+    color: 'grey',
+    fontSize: 15,
+  },
+  signOutText: {
+    width: '100%',
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center',
   },
 });
 

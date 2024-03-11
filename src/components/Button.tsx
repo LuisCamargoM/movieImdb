@@ -8,7 +8,7 @@ import {
 type CustomButtonProps = {
   loading: boolean;
   children: React.ReactNode;
-  type?: 'primary' | 'secondary' | 'outline' | 'default';
+  type?:  'secondary'
   onPress: () => void;
 } & React.ComponentProps<any>;
 

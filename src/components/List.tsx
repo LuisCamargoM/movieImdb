@@ -3,10 +3,11 @@ import {FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
 import {selectLoadingMovies} from '../store/slices/movieSlice';
 import LoadingScreen from '../screens/Loading';
+import {Movie} from '../services/types';
 
 interface MovieListProps {
-  RenderItem: React.FC<{item: any}>;
-  items: any[];
+  RenderItem: React.FC<{item: Movie}>;
+  items: Movie[];
   HeaderComponent?: React.ReactNode;
   type: 'home' | 'search';
 }
@@ -22,10 +23,14 @@ const MovieList: React.FC<MovieListProps> = ({
   return (
     <FlatList
       data={items}
-      keyExtractor={(item, index) => item}
+      keyExtractor={(item, index) => item.imdbId}
       showsVerticalScrollIndicator={false}
       renderItem={({item}) => (
-        <RenderItem item={item} styleType={type ?? 'search'} />
+        <RenderItem
+          key={`${item.imdbId}+${item.rank}`}
+          item={item}
+          styleType={type ?? 'search'}
+        />
       )}
       ListHeaderComponent={HeaderComponent}
     />
