@@ -14,12 +14,12 @@ const DetailsScreen: React.FC = props => {
   const {width, height} = Dimensions.get('window');
   const description =
     'Nove famílias nobres lutam pelo controle sobre as terras míticas de Westeros, enquanto um antigo inimigo retorna depois de estar adormecido por milhares de anos.';
-  const actors = item['#ACTORS'].split(',');
+  const actors = item.actors.split(',');
   return (
     <>
       <View style={container}>
         <ImageBackground
-          source={{uri: item['#IMG_POSTER']}}
+          source={{uri: item.imgPoster}}
           resizeMode="cover"
           style={{
             width: width,
@@ -40,23 +40,17 @@ const DetailsScreen: React.FC = props => {
             alignItems: 'center',
             //
           }}>
-          {/* <Image
-            source={{uri: item['#IMG_POSTER']}}
-            width={250}
-            height={300}
-            // style={{top: -height / 2.8}}
-          /> */}
           <ScrollView
             style={{
               flex: 1,
               //   top: -height / 3.8,
             }}>
             <View style={{flexDirection: 'row'}}>
-              <ITitle text={`${item['#TITLE']}`} color="white" size={40} />
+              <ITitle text={`${item.title}`} color="white" size={40} />
             </View>
             <View style={{marginLeft: 5, marginTop: 10}}>
               <IText
-                text={item['#YEAR']}
+                text={item.year}
                 color="grey"
                 size={18}
                 adjustsFontSizeToFit

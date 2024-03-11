@@ -33,7 +33,7 @@ const MovieItem: React.FC<MovieItemProps> = ({item, styleType}) => {
       }}>
       <Image
         source={{
-          uri: item['#IMG_POSTER'],
+          uri: item.imgPoster,
         }}
         width={60}
         height={90}
@@ -56,7 +56,7 @@ const MovieItem: React.FC<MovieItemProps> = ({item, styleType}) => {
               fontWeight: 'bold',
               color: containerStyle.color,
             }}>
-            {`${item['#TITLE']}`} {`| ${item['#YEAR']}`}
+            {`${item.title}`} {`| ${item.year}`}
           </Text>
           <Text
             style={{
@@ -77,7 +77,7 @@ const MovieItem: React.FC<MovieItemProps> = ({item, styleType}) => {
               textAlign: 'right',
               marginRight: 0,
             }}>
-            Rank #{item['#RANK']}
+            Rank #{item.rank}
           </Text>
           <Text
             style={{
@@ -86,7 +86,7 @@ const MovieItem: React.FC<MovieItemProps> = ({item, styleType}) => {
               textAlign: 'right',
               marginRight: 0,
             }}>
-            ID: {item['#IMDB_ID']}
+            ID: {item.imdbId}
           </Text>
         </View>
       </View>
