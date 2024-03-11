@@ -1,46 +1,66 @@
 # Frontend React Native coding assessment
 
-## Dear Candidate
-Welcome to our take-home coding assessment. We trust you'll find this assessment both challenging and rewarding, and we look forward to the opportunity to discuss your accomplishments further in the next stage.
+## The Challenge
 
-## Your Challenge
-Develop a cross-platform mobile application using React Native and TypeScript that allows users to search for movies in an open API movie database. The app should display 10 random movies on the home screen along with a search bar. Users should be able to search for movies and view detailed information about each movie, including title, description, poster, actors, and reviews. As a bonus, create a network business logic SDK that can be reused in a React.js project and integrate a state manager solution.
+It is cross-platform mobile application using React Native and TypeScript that allows users to search for movies in an open API movie database. The app displays 10 random movies on the home screen along with a search bar. Users are allowed to search for movies and view detailed information about each movie, including title, description, poster, actors, and reviews.
+As a bonus, create a network business logic SDK that can be reused in a React.js project and integrate a state manager solution.
 
-## Project features
-- Integration with Open API Movie Database: Utilize the provided open API movie database (https://search.imdbot.workers.dev/) to fetch movie data.
+BASE_URL Integration with Open API Movie Database: https://search.imdbot.workers.dev/.
 
-#### Home Screen:
-- Display 10 random movies on the home screen.
-= Include a search bar at the top of the screen for users to search for movies.
+### Requirements
 
-#### Search Functionality:
-- Implement search functionality that allows users to search for movies based on title or keywords.
-= Display search results in a list with movie posters and titles.
+    [] Axios
+    [] Typescript
+    [] React Native
+    [] Async Storage
+    [] React Navigation
+    [] Loading and Error states
+    [] Redux | Redux Toolkit | Persistance
 
-#### Movie Detail Screen:
-- Create a movie detail screen that shows detailed information about a selected movie.
-- Display the movie's title, description, poster, actors, list of reviews, and keywords.
+### Platforms
 
+    [] Work on ios
+    [] Work on android
 
-Requirements
-[] React Native 
-[] Typescript
-[] React Navigation
-[] Loading and Error states
-[] Test on ios
-[] Test on android
-[] Redux to handle: global state, movie data, search results, selected movie details
+### Flows & Functionalities
 
-Flows & Functionalities
-- Search
-[] Search functionality based on title or keywords
-[] Display Search results in a list with movie posters and titles
-- Home Screen
-[] Display 10 random movies on the home screen
-[] Include a Search Bar at the top of the screen for users to search
+    - Home Screen
+        [] Display 10 random movies on the home screen
+        [] Include a Search Bar at the top of the screen for users to search
 
-SDK Usage in a react.js project
-- Include functions for:
-[] fetching random movies,
-[] searching for movies,
-[] retrieving movie details.
+    - Search Bar
+        [] Search functionality based on title or keywords
+
+    - Search Results
+        [] Display Search results in a list with movie posters and titles
+
+    - Details Screen
+        [] Create a movie detail screen that shows detailed information about a selected movie.
+        [] Display the movie's title, description, poster, actors, list of reviews, and keywords.
+
+### Bonus: SDK Usage in a react.js project
+
+    - Include functions for:
+        [] fetching random movies,
+        [] searching for movies,
+        [] retrieving movie details.
+
+## How to run
+
+- Clone the repository in your local
+
+```
+    git clone https://github.com/LuisCamargoM/movieImdb.git
+```
+
+- Run the following commands
+
+```
+    cd movieimdb && npm install
+    For iOS:
+        - cd ios && pod install && cd ..
+        - yarn ios
+    For Android:
+        - cd android && ./gradlew clean && cd ..
+        - yarn android
+```
