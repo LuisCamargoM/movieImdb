@@ -20,7 +20,7 @@ const IButton: React.FC<CustomButtonProps> = ({
   ...rest
 }) => {
   const {button} = styles;
-
+  const themeColor = type==='secondary' ? 'white' : 'grey';
   return (
     <TouchableOpacity
       style={button}
@@ -28,7 +28,7 @@ const IButton: React.FC<CustomButtonProps> = ({
       disabled={loading}
       {...rest}>
       {loading ? (
-        <ActivityIndicator size={'small'} color={'black'} />
+        <ActivityIndicator size={'small'} color={themeColor} />
       ) : (
         children
       )}
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '70%',
+    width: '100%',
     paddingVertical: 12,
     marginVertical: 10,
     borderRadius: 15,

@@ -1,15 +1,19 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {setMovieSelected} from '../store/slices/movieSlice';
 
 interface MovieItemProps {
   item: any;
   styleType: 'home' | 'search';
 }
 
-const MovieItem: React.FC<MovieItemProps> = ({item, styleType}) => {
+const MovieItem: React.FC<MovieItemProps> = ({item, styleType = 'home'}) => {
+  const dispatch = useDispatch();
   const onPressHandler = () => {
-    navigation.navigate('Details', {item});
+    dispatch(setMovieSelected({movieSelected: item}));
+    navigation.navigate('Details');
   };
 
   const navigation = useNavigation();
@@ -33,7 +37,7 @@ const MovieItem: React.FC<MovieItemProps> = ({item, styleType}) => {
       }}>
       <Image
         source={{
-          uri: item.imgPoster,
+          uri: item.imgPoster || 'http://via.placeholder.com/60x90',
         }}
         width={60}
         height={90}
