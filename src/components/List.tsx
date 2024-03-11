@@ -19,7 +19,7 @@ const MovieList: React.FC<MovieListProps> = ({
   type,
 }) => {
   const loading = useSelector(selectLoadingMovies);
-  if (loading) return <LoadingScreen />;
+  if (type != 'search' && loading) return <LoadingScreen />;
   return (
     <FlatList
       data={items}

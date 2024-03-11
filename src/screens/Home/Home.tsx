@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, Dimensions, StyleSheet, View} from 'react-native';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import {IText, ITitle} from '../../components/Text';
 import ITextInput from '../../components/TextInput';
 import MovieItem from '../../components/MovieItem';
@@ -40,15 +40,15 @@ const Home: React.FC = () => {
     );
   };
   const SearchHeaderComponent = () => {
-    return newItems ? (
-      <View style={searchHeaderContainer}>
-        <IText
-          text={`${newItems?.length} resultados encontrados`}
-          color="white"
-        />
-      </View>
-    ) : (
-      <ActivityIndicator size={'small'} color={'white'} />
+    return (
+      newItems && (
+        <View style={searchHeaderContainer}>
+          <IText
+            text={`${newItems?.length} resultados encontrados`}
+            color={'#292929'}
+          />
+        </View>
+      )
     );
   };
   const ResultHeaderComponent = () => {
@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 20,
     width: '100%',
-    backgroundColor: 'rgba(0,0,0,0.8)',
     paddingHorizontal: 10,
   },
   resultContainer: {paddingHorizontal: 30, flex: 1},
