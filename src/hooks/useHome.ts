@@ -1,19 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Movie} from '../services/types';
 import {getRandomMovies, search} from '../services/api';
 import {useDispatch, useSelector} from 'react-redux';
+
 import {
-  selectResults,
   selectTerm,
   setLoadingSearch,
   setResults,
-  setTerm,
 } from '../store/slices/searchSlice';
-import {
-  selectLoadingMovies,
-  setLoadingMovies,
-  setMovies,
-} from '../store/slices/movieSlice';
+import {setLoadingMovies, setMovies} from '../store/slices/movieSlice';
 
 export const useHome = () => {
   const dispatch = useDispatch();
@@ -57,5 +52,4 @@ export const useHome = () => {
       loadSearchItems();
     }
   }, [term]);
-
 };

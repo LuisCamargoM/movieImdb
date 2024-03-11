@@ -5,11 +5,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   selectChoosenMovie,
   setLoadingDetailMovies,
-  setMovieSelected,
 } from '../store/slices/movieSlice';
+import {useNavigation} from '@react-navigation/native';
 
 export const useMovieDetails = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const item = useSelector(selectChoosenMovie);
   const [details, setDetails] = useState<Details>();
 
@@ -17,11 +18,20 @@ export const useMovieDetails = () => {
   const genres = details?.genres.join(',');
   const fetchMovieDetails = async () => {
     dispatch(setLoadingDetailMovies({loading: true}));
-    await getMovieDetails(item?.imdbId).then(result => {
-      setDetails(result.details);
-      dispatch(setLoadingDetailMovies({loading: false}));
-      return result;
-    });
+    await getMovieDetails(item?.imdbId)
+      .then(result => {
+        const {details: _details, ok} = result;
+        if (ok) {
+          setDetails(_details);
+          dispatch(setLoadingDetailMovies({loading: false}));
+        } else {
+          navigation.goBack();
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        navigation.goBack();
+      });
   };
   useEffect(() => {
     fetchMovieDetails();
