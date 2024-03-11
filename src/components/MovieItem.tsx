@@ -1,9 +1,9 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {setMovieSelected} from '../store/slices/movieSlice';
-import { Movie } from '../services/types';
+import {Movie} from '../services/types';
 
 interface MovieItemProps {
   item: Movie;
@@ -12,11 +12,6 @@ interface MovieItemProps {
 
 const MovieItem: React.FC<MovieItemProps> = ({item, styleType = 'home'}) => {
   const dispatch = useDispatch();
-  const onPressHandler = () => {
-    dispatch(setMovieSelected({movieSelected: item}));
-    navigation.navigate('Details');
-  };
-
   const navigation = useNavigation();
 
   const containerStyle =
@@ -24,79 +19,86 @@ const MovieItem: React.FC<MovieItemProps> = ({item, styleType = 'home'}) => {
       ? {backgroundColor: '#292929', color: '#ffffff'}
       : {backgroundColor: '#ffffff', color: '#292929'};
 
+  const {
+    container,
+    imgContainer,
+    itemsContainer,
+    titleNYearText,
+    rankNIDText,
+    rankText,
+    idText,
+  } = styles(containerStyle);
+  const onPressHandler = () => {
+    dispatch(setMovieSelected({movieSelected: item}));
+    navigation.navigate('Details');
+  };
+
   return (
     <TouchableOpacity
       onPress={onPressHandler}
-      style={{
-        width: '100%',
-        ...containerStyle,
-        alignItems: 'center',
-        flexDirection: 'row',
-        marginBottom: 5,
-        borderRadius: 10,
-        zIndex: -5,
-      }}>
+      style={[containerStyle, , container]}>
       <Image
         source={{
           uri: item.imgPoster || 'http://via.placeholder.com/60x90',
         }}
         width={60}
         height={90}
-        style={{borderTopLeftRadius: 10, borderBottomLeftRadius: 10}}
+        style={imgContainer}
       />
-      <View
-        style={{
-          justifyContent: 'space-between',
-          flexDirection: 'column',
-          marginHorizontal: 10,
-          height: 80,
-          width: '100%',
-          flex: 1,
-        }}>
+      <View style={itemsContainer}>
         <View style={{flexDirection: 'row'}}>
-          <Text
-            adjustsFontSizeToFit
-            style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              color: containerStyle.color,
-            }}>
+          <Text adjustsFontSizeToFit style={titleNYearText}>
             {`${item.title}`} {`| ${item.year}`}
           </Text>
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: 'bold',
-              color: containerStyle.color,
-            }}></Text>
         </View>
-        <View
-          style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-          }}>
-          <Text
-            style={{
-              color: containerStyle.color,
-              fontSize: 14,
-              textAlign: 'right',
-              marginRight: 0,
-            }}>
-            Rank #{item.rank}
-          </Text>
-          <Text
-            style={{
-              color: containerStyle.color,
-              fontSize: 14,
-              textAlign: 'right',
-              marginRight: 0,
-            }}>
-            ID: {item.imdbId}
-          </Text>
+        <View style={rankNIDText}>
+          <Text style={rankText}>Rank #{item.rank}</Text>
+          <Text style={idText}>ID: {item.imdbId}</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 };
 
+const styles = containerStyle =>
+  StyleSheet.create({
+    container: {
+      width: '100%',
+      alignItems: 'center',
+      flexDirection: 'row',
+      marginBottom: 5,
+      borderRadius: 10,
+      zIndex: -5,
+    },
+    imgContainer: {borderTopLeftRadius: 10, borderBottomLeftRadius: 10},
+    itemsContainer: {
+      justifyContent: 'space-between',
+      flexDirection: 'column',
+      marginHorizontal: 10,
+      height: 80,
+      width: '100%',
+      flex: 1,
+    },
+    titleNYearText: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: containerStyle.color,
+    },
+    rankNIDText: {
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+    },
+    rankText: {
+      color: containerStyle.color,
+      fontSize: 14,
+      textAlign: 'right',
+      marginRight: 0,
+    },
+    idText: {
+      color: containerStyle.color,
+      fontSize: 14,
+      textAlign: 'right',
+      marginRight: 0,
+    },
+  });
 export default MovieItem;

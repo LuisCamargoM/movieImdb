@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput} from 'react-native';
+import {StyleSheet, TextInput} from 'react-native';
 
 type CustomTextInputProps = {
   placeholder: string;
@@ -13,6 +13,7 @@ const ITextInput: React.FC<CustomTextInputProps> = ({
   setValue,
   ...rest
 }) => {
+  const {textInput} = styles;
   return (
     <TextInput
       {...rest}
@@ -22,19 +23,23 @@ const ITextInput: React.FC<CustomTextInputProps> = ({
       autoCorrect={false}
       autoFocus={true}
       placeholderTextColor={'grey'}
-      style={{
-        width: '100%',
-        height: 50,
-        paddingHorizontal: 15,
-        justifyContent: 'center',
-        backgroundColor: '#292929',
-        borderRadius: 10,
-        borderWidth: 1,
-        color: '#ffffff',
-        fontWeight: 'bold',
-      }}
+      style={textInput}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  textInput: {
+    width: '100%',
+    height: 50,
+    paddingHorizontal: 15,
+    justifyContent: 'center',
+    backgroundColor: '#292929',
+    borderRadius: 10,
+    borderWidth: 1,
+    color: '#ffffff',
+    fontWeight: 'bold',
+  },
+});
 
 export default ITextInput;
