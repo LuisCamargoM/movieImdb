@@ -1,8 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Movie} from '../../services/types';
 
-// Last selected movie
-// 10 movies
 interface InitialState {
   movies: Movie[];
   movieSelected: Movie;

@@ -1,8 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Movie} from '../../services/types';
 
-// search term
-// search results
 interface InitialState {
   term: string;
   loading: boolean;
