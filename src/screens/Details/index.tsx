@@ -43,7 +43,6 @@ const DetailsScreen: React.FC = props => {
           <ScrollView
             style={{
               flex: 1,
-              //   top: -height / 3.8,
             }}>
             <View style={{flexDirection: 'row'}}>
               <ITitle text={`${item.title}`} color="white" size={40} />
