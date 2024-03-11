@@ -64,7 +64,7 @@ export const getMovieDetails = async (imdbId: string): Promise<any> => {
     };
     return {details, error_code: '200', ok: true};
   } catch (error) {
-    //   return { error_code: "400", ok: false, details: null };
+      return { error_code: "400", ok: false, details: null };
   }
 };
 
